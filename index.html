@@ -1,55 +1,36 @@
-
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magic Vault</title>
-    <meta name="description" content="Magic Vault — built on Replit. Update this description to reflect the app." />
-    <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="Magic Vault" />
-    <meta property="og:description" content="Magic Vault — built on Replit. Update this description to reflect the app." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Magic Vault" />
-    <meta name="twitter:description" content="Magic Vault — built on Replit. Update this description to reflect the app." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Start.io (StartApp) WebView/APK Interstitial SDK -->
-    <script>var startapp_d = "204869829";</script>
-    <script src="https://sdk.startapp.com/web/startapp_sdk.js"></script>
-    <script>
-      window.addEventListener('load', function () {
-        function tryInit(attempt) {
-          if (window.startapp) {
-            // Live mode — real ads, real revenue (App ID: 204869829)
-            if (typeof startapp.setAppId    === 'function') startapp.setAppId('204869829');
-            if (typeof startapp.onReady     === 'function') startapp.onReady(preloadAd);
-            else preloadAd();
-          } else if (window.startIO) {
-            if (typeof startIO.init === 'function') startIO.init({ appId: '204869829', testMode: true });
-            preloadAd();
-          } else if (attempt < 20) {
-            setTimeout(function () { tryInit(attempt + 1); }, 300);
-          }
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://sdk.start.io/startapp-sdk.js"></script>
+    <script type="text/javascript">
+        var sdk = new StartAppSDK({ appId: "204869829" });
+        function showAd() {
+            sdk.showInterstitial();
         }
-        function preloadAd() {
-          try {
-            var api = window.startapp || window.startIO;
-            if (!api) return;
-            if      (typeof api.preloadInterstitial === 'function') api.preloadInterstitial();
-            else if (typeof api.loadInterstitial    === 'function') api.loadInterstitial();
-            else if (typeof api.loadAd              === 'function') api.loadAd();
-          } catch (e) {}
-        }
-        tryInit(0);
-      });
     </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+</head>
+<body class="bg-black text-yellow-600 flex flex-col items-center justify-center min-h-screen">
+
+    <h1 class="text-3xl font-bold mb-8">Magic Vault</h1>
+    <input type="password" id="pin" class="bg-black border border-yellow-600 p-4 text-center text-2xl w-64 mb-6" placeholder="Enter PIN">
+    <button onclick="checkPin()" class="bg-yellow-600 text-black font-bold py-3 px-8 text-xl">UNLOCK</button>
+
+    <script>
+        function checkPin() {
+            var pin = document.getElementById("pin").value;
+            if (pin === "222222") {
+                showAd(); // Ad trigger
+                setTimeout(function() {
+                    alert("Vault Unlocked!");
+                }, 1000);
+            } else {
+                alert("Wrong PIN!");
+            }
+        }
+    </script>
+</body>
 </html>
